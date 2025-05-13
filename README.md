@@ -15,4 +15,4 @@ for windows:
 
 
 to run script:
-python processing.py
+python main.py
