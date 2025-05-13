@@ -12,14 +12,16 @@ from sklearn.feature_extraction.text import CountVectorizer
 import seaborn as sns
 
 
-def preprocess():
-  accident_df = pd.read_csv("./datasets/accident.csv", usecols=["ACCIDENT_NO"])
-  vehicle_df = pd.read_csv("./datasets/filtered_vehicle.csv", usecols=["ACCIDENT_NO", "VEHICLE_MAKE"])
-  person_df = pd.read_csv("./datasets/person.csv", usecols=["ACCIDENT_NO", "SEATING_POSITION"])
+from utilities import merge_df
 
-  print(accident_df.head())
-  print(vehicle_df.head())
-  print(person_df.head())
+
+def preprocess():
+  vehicle_df = pd.read_csv("./datasets/filtered_vehicle.csv", usecols=["ACCIDENT_NO", "VEHICLE_TYPE", "VEHICLE_TYPE_DESC"])
+  person_df = pd.read_csv("./datasets/person.csv", usecols=["ACCIDENT_NO", "SEATING_POSITION", "HELMET_BELT_WORN", "INJ_LEVEL", "INJ_LEVEL_DESC"])
+
+  merged_df = merge_df(vehicle_df, person_df, "ACCIDENT_NO")
+
+  print(merged_df.head())
 
 
 preprocess()
